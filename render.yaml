@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: educa-backend
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 2 --threads 4 --timeout 120 server:app
+    healthCheckPath: /api/health
+    envVars:
+      - key: EDUCA_ENV
+        value: production
+      - key: EDUCA_SERVER_SECRET
+        sync: false
+      - key: EDUCA_ALLOWED_ORIGINS
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: SMTP_FROM
+        sync: false
+      - key: SMTP_TLS
+        value: "1"
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-5.6-luna
+      - key: EDUCA_DB
+        sync: false
