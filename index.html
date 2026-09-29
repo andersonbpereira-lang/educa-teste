@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07111f">
+<meta name="description" content="Educa- — plataforma educativa infantil gamificada.">
+<title>Educa- | Aprender é uma aventura</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="loadingScreen" class="loading-screen intro-rocket">
+  <div class="rocket-scene" aria-hidden="true">
+    <div class="rocket-trail"></div>
+    <div class="intro-rocket-ship">🚀</div>
+    <div class="rocket-burst">✦</div>
+  </div>
+  <div class="intro-brand">
+    <div class="loader-logo">🎓</div>
+    <div class="loader-title">Educa<span>-</span></div>
+    <p class="intro-loading-text">Carregando sua aventura...</p>
+    <div class="loader-bar"><i></i></div>
+    <p>Preparando sua aventura de aprendizagem...</p>
+  </div>
+</div>
+<div id="ambient" aria-hidden="true"></div>
+<div id="particles" aria-hidden="true"></div>
+
+<section id="loginScreen" class="screen active">
+  <div class="login-wrap">
+    <div class="login-card glass">
+      <div class="brand-orbit"><span>🎓</span><i></i><b></b></div>
+      <div class="eyebrow">PLATAFORMA DE APRENDIZAGEM</div>
+      <h1>Educa<span>-</span></h1>
+      <p class="lead">Aprender, jogar e evoluir. 🚀</p>
+      <div class="auth-tabs"><button type="button" id="loginTab" class="auth-tab active">Entrar</button><button type="button" id="registerTab" class="auth-tab">Criar conta</button></div>
+      <form id="loginForm" novalidate>
+        <div id="registerOnlyFields" class="register-only hidden-auth">
+          <label>👤 Usuário<input id="username" maxlength="20" autocomplete="nickname" placeholder="Como podemos te chamar?"></label>
+        </div>
+        <label>📧 E-mail<input id="email" type="email" maxlength="160" autocomplete="email" placeholder="seuemail@exemplo.com"></label>
+        <label>🔐 Senha<div class="password-box"><input id="password" type="password" minlength="8" maxlength="72" autocomplete="current-password" placeholder="Mínimo de 8 caracteres"><button type="button" id="togglePassword" aria-label="Mostrar senha">👁️</button></div></label>
+        <div id="verifyBox" class="verify-box hidden-auth">
+          <label>🔢 Código enviado ao e-mail<input id="verifyCode" inputmode="numeric" maxlength="6" placeholder="Digite os 6 números"></label>
+          <button type="button" id="verifyBtn" class="secondary-btn">✅ Confirmar e ativar conta</button>
+          <button type="button" id="resendBtn" class="link-btn">Enviar código novamente</button>
+        </div>
+        <button id="authSubmit" class="primary-btn shine" type="submit"><span>🚀 Entrar na aventura</span></button>
+        <button id="forgotPasswordBtn" type="button" class="link-btn">🔑 Esqueci minha senha</button>
+        <p id="loginMessage" class="message"></p>
+      </form>
+      <div class="login-tip">🔐 O código de confirmação é enviado ao seu e-mail. O servidor guarda a senha usando hash e o progresso pode ser armazenado criptografado.</div>
+    </div>
+  </div>
+</section>
+
+<section id="hubScreen" class="screen">
+<header class="topbar glass">
+  <div class="brand">🎓 Educa<span>-</span></div>
+  <div class="top-center"><span class="status-dot"></span> Modo aprendizagem</div>
+  <div class="top-actions"><button class="icon-btn" id="fullscreenBtn" title="Tela cheia">⛶</button><button class="icon-btn" id="logoutBtn" title="Sair">↪</button></div>
+</header>
+<main class="container">
+  <section class="hero glass reveal">
+    <div><div class="eyebrow">SEU ESPAÇO</div><h2>Olá, <span class="name-with-frame"><span id="playerFrame" class="avatar-frame frame-default"><span class="mini-avatar"><span class="mini-head">🙂</span><span class="mini-body">🧥</span><span class="mini-item"></span></span></span><span id="playerName">aluno</span></span>! 👋</h2><p>Escolha uma matéria e continue sua jornada.</p></div>
+    <div class="player-level"><span>NÍVEL</span><strong id="playerLevel">1</strong><small>do jogador</small></div>
+  </section>
+  <section class="stats-grid">
+    <div class="stat glass"><span>⭐ XP TOTAL</span><strong id="xpValue">0</strong><div class="xp-track"><i id="xpBar"></i></div></div>
+    <div class="stat glass"><span>🏆 FASES CONCLUÍDAS</span><strong id="completedValue">0</strong><small>de 400</small></div>
+    <div class="stat glass"><span>📚 MATÉRIAS</span><strong>8</strong><small>para explorar</small></div><div class="stat glass"><span>🪙 MOEDAS</span><strong id="coinsValue">0</strong><small>use na loja</small></div>
+  </section>
+  <div class="section-heading"><div><div class="eyebrow">MUNDO EDUCA</div><h2>Escolha sua missão</h2></div><span class="badge">50 níveis por matéria</span></div>
+  <div id="subjectsContainer" class="subjects-grid"></div>
+  <section class="hub-tools">
+    <button class="tool-card glass" id="characterBtn"><span>🧑‍🚀</span><b>Personagem</b><small>Girar e personalizar</small></button>
+    <button class="tool-card glass" id="shopBtn"><span>🛍️</span><b>Loja</b><small>Skins e itens</small></button>
+    <button class="tool-card glass" id="customBtn"><span>✨</span><b>Personalizar</b><small>Monte seu personagem</small></button>
+    <button class="tool-card glass" id="achievementsBtn"><span>🏆</span><b>Conquistas</b><small>Veja suas medalhas</small></button>
+    <button class="tool-card glass" id="progressBtn"><span>📊</span><b>Progresso</b><small>Acertos por matéria</small></button>
+    <button class="tool-card glass professor-tool" id="professorBtn"><span>🤖</span><b>Professor IA</b><small>Crie fases pelo conteúdo</small></button>
+  </section>
+</main>
+</section>
+
+<section id="levelsScreen" class="screen">
+<header class="topbar glass">
+  <button class="back-btn" id="backSubjects">← Matérias</button>
+  <div class="brand">🎓 Educa<span>-</span></div><div></div>
+</header>
+<main class="container">
+  <section class="subject-banner glass reveal"><div id="levelIcon" class="big-icon">📚</div><div><div class="eyebrow">MAPA DA MATÉRIA</div><h2 id="levelSubjectName">Matemática</h2><p id="levelsTitle">50 níveis de aprendizagem</p></div></section>
+  <section class="progress-line glass"><div><span>Seu progresso</span><strong id="subjectProgressText">0/50</strong></div><div class="bar"><i id="subjectProgressBar"></i></div></section>
+  <div id="levelsContainer" class="levels-grid"></div>
+</main>
+</section>
+
+<section id="gameScreen" class="screen">
+<header class="topbar glass">
+  <button class="back-btn" id="quitGame">← Sair da fase</button>
+  <div class="game-title"><span id="gameSubject">📚 Matéria</span><b id="levelLabel">Nível 1</b></div>
+  <div class="game-xp">⭐ <span id="gameXp">0</span> XP</div>
+</header>
+<main class="game-container">
+  <div class="question-meta"><span id="questionNumber">Pergunta 1/5</span><span id="questionTopic">Tema</span></div>
+  <div class="question-progress"><i id="questionProgressBar"></i></div>
+  <section id="questionCard" class="question-card glass">
+    <div class="question-icon" id="questionIcon">🧠</div>
+    <div class="topic" id="questionTag">MISSÃO</div>
+    <h2 id="questionText">Carregando pergunta...</h2>
+    <div id="answersContainer" class="answers"></div>
+    <p id="answerMessage" class="answer-message"></p>
+  </section>
+</main>
+</section>
+
+<div id="completeModal" class="modal hidden"><div class="modal-card reward-card"><div class="confetti">🎉</div><div class="success-ring">✓</div><div class="eyebrow">FASE CONCLUÍDA</div><h2>Mandou muito bem!</h2><p id="completeText">Você completou a fase.</p><div class="reward">+<span id="rewardXp">0</span> XP ⭐</div><div class="modal-actions"><button id="nextLevelBtn" class="primary-btn">🚀 Próximo nível</button><button id="backMapBtn" class="secondary-btn">🗺️ Voltar ao mapa</button></div></div></div>
+<div id="levelUpModal" class="modal hidden"><div class="modal-card levelup-card"><div class="levelup-burst">✨</div><div class="eyebrow">VOCÊ EVOLUIU!</div><h2>Novo nível</h2><strong id="newPlayerLevel">Nível 2</strong><p>Continue assim! Cada missão concluída deixa você mais preparado.</p><button id="closeLevelUp" class="primary-btn">🔥 Continuar</button></div></div>
+
+<div id="phaseBuilderModal" class="modal hidden"><div class="modal-card wide-modal"><div class="eyebrow">CRIADOR DE FASE</div><h2>Monte sua missão 🎯</h2><p>Escolha os conteúdos que você quer praticar. A fase será montada com perguntas desses temas.</p><div id="topicChoices" class="topic-choices"></div><div class="builder-difficulty" id="builderDifficulty">Dificuldade: ⭐</div><div class="modal-actions"><button id="generatePhaseBtn" class="primary-btn">🚀 Gerar fase</button><button id="cancelPhaseBtn" class="secondary-btn">Voltar</button></div></div></div>
+<div id="characterModal" class="modal hidden"><div class="modal-card wide-modal"><div class="eyebrow">SEU PERSONAGEM</div><h2>Gire e explore ✨</h2><div class="character-stage" id="characterStage"><div class="character-3d" id="character3d"><div class="char-shadow"></div><div class="char-head" id="charHead">🙂</div><div class="char-body" id="charBody">🧥</div><div class="char-item" id="charItem"></div></div></div><p>Arraste para os lados para girar.</p><button id="closeCharacterBtn" class="secondary-btn">Fechar</button></div></div>
+<div id="shopModal" class="modal hidden"><div class="modal-card wide-modal"><div class="shop-head"><div><div class="eyebrow">LOJA EDUCA</div><h2>Itens e skins 🛍️</h2></div><strong id="shopCoins">🪙 0</strong></div><div id="shopGrid" class="shop-grid"></div><button id="closeShopBtn" class="secondary-btn">Fechar</button></div></div>
+<div id="customModal" class="modal hidden"><div class="modal-card wide-modal"><div class="eyebrow">PERSONALIZAÇÃO</div><h2>Crie seu visual ✨</h2><div class="custom-layout"><div class="custom-preview character-stage"><div class="character-3d"><div class="char-head" id="customHead">🙂</div><div class="char-body" id="customBody">🧥</div><div class="char-item" id="customItem"></div></div></div><div><h3>Skins</h3><div id="skinOptions" class="option-grid"></div><h3>Itens</h3><div id="itemOptions" class="option-grid"></div></div></div><button id="closeCustomBtn" class="secondary-btn">Fechar</button></div></div>
+<div id="achievementsModal" class="modal hidden"><div class="modal-card wide-modal"><div class="eyebrow">CONQUISTAS & MOLDURAS</div><h2>Suas conquistas 🏆</h2><p>Conquistas desbloqueiam molduras de avatar. Escolha uma para aparecer ao lado do seu nome.</p><div id="achievementGrid" class="achievement-grid"></div><div class="frame-picker"><h3>🖼️ Moldura do avatar</h3><div id="frameGrid" class="frame-grid"></div></div><button id="closeAchievementsBtn" class="secondary-btn">Fechar</button></div></div>
+<div id="progressModal" class="modal hidden"><div class="modal-card wide-modal"><div class="eyebrow">SEU PROGRESSO</div><h2>Desempenho por matéria 📊</h2><div id="accuracyGrid" class="accuracy-grid"></div><button id="closeProgressBtn" class="secondary-btn">Fechar</button></div></div>
+
+<div id="resetModal" class="modal hidden">
+  <div class="modal-card wide-modal reset-modal">
+    <div class="eyebrow">RECUPERAÇÃO DE CONTA</div>
+    <h2>Redefinir senha 🔐</h2>
+    <p>Informe seu e-mail. Se a conta estiver confirmada, enviaremos um código para criar uma nova senha.</p>
+    <div class="reset-form">
+      <label>📧 E-mail<input id="resetEmail" type="email" maxlength="160" placeholder="seuemail@exemplo.com"></label>
+      <label>🔢 Código<input id="resetCode" inputmode="numeric" maxlength="6" placeholder="6 números"></label>
+      <label>🔐 Nova senha<input id="resetPassword" type="password" minlength="8" maxlength="72" placeholder="Mínimo de 8 caracteres"></label>
+    </div>
+    <p id="resetStatus" class="message"></p>
+    <div class="modal-actions">
+      <button id="sendResetCodeBtn" class="secondary-btn">📨 Enviar código</button>
+      <button id="resetPasswordBtn" class="primary-btn">🔐 Trocar senha</button>
+      <button id="closeResetBtn" class="secondary-btn">Voltar</button>
+    </div>
+    <small class="reset-warning">Ao redefinir a senha, o progresso antigo pode não ser recuperável porque ele é protegido pela senha anterior.</small>
+  </div>
+</div>
+
+<div id="professorModal" class="modal hidden">
+  <div class="modal-card wide-modal professor-modal">
+    <div class="eyebrow">PROFESSOR IA</div>
+    <h2 id="professorTitle">Professor IA 🤖</h2>
+    <div class="professor-tabs"><button id="profExplainTab" class="professor-tab active" type="button">💬 Perguntar e explicar</button><button id="profCreateTab" class="professor-tab" type="button">🎮 Criar 25 fases</button></div>
+    <div id="profExplainPanel" class="prof-panel">
+      <p>Faça uma pergunta sobre qualquer conteúdo da matéria. O professor explica de forma simples, com exemplos e dicas.</p>
+      <div class="professor-form professor-explain-form">
+        <label>📚 Matéria<select id="explainSubject"></select></label>
+        <label>❓ Sua pergunta<textarea id="explainQuestion" maxlength="500" placeholder="Ex.: Como funcionam as frações? Me explique de um jeito fácil."></textarea></label>
+      </div>
+      <div class="modal-actions"><button id="askProfessorBtn" class="primary-btn">🤖 Perguntar ao professor</button></div>
+      <div id="explainAnswer" class="ai-answer hidden-auth"></div>
+    </div>
+    <div id="profCreatePanel" class="prof-panel hidden-auth">
+      <p>Escolha a matéria e diga o conteúdo. O professor cria uma trilha com <strong>25 fases</strong>, cada fase com <strong>5 perguntas</strong>, totalizando 125 perguntas diferentes.</p>
+      <div class="professor-form">
+        <label>📚 Matéria<select id="professorSubject"></select></label>
+        <label>🧠 Conteúdo<input id="professorTopic" maxlength="120" placeholder="Ex.: frações, Revolução Industrial, verbos em inglês..."></label>
+        <label>🎯 Dificuldade<select id="professorDifficulty"><option value="facil">Fácil</option><option value="medio" selected>Médio</option><option value="dificil">Difícil</option><option value="desafio">Desafio</option></select></label>
+      </div>
+      <div class="professor-example">🎯 <strong>25 fases × 5 perguntas = 125 perguntas.</strong> O sistema valida perguntas repetidas antes de liberar a trilha.</div>
+      <p id="professorStatus" class="message"></p>
+      <div class="modal-actions"><button id="generateAiBtn" class="primary-btn">🚀 Criar 25 fases</button></div>
+    </div>
+    <div class="modal-actions"><button id="closeProfessorBtn" class="secondary-btn">Voltar</button></div>
+  </div>
+</div>
+<div id="aiCurriculumModal" class="modal hidden"><div class="modal-card wide-modal"><div class="eyebrow">TRILHA DO PROFESSOR IA</div><h2 id="curriculumTitle">25 fases personalizadas 🤖</h2><p id="curriculumInfo">Escolha uma fase para começar.</p><div id="curriculumGrid" class="curriculum-grid"></div><button id="closeCurriculumBtn" class="secondary-btn">Voltar</button></div></div>
+
+<div id="toast" class="toast"></div>
+<script>window.EDUCA_API = window.EDUCA_API || "http://127.0.0.1:5000";</script>
+<script src="game.js"></script>
+</body>
+</html>
